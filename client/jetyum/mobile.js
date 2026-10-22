@@ -69,49 +69,57 @@
       }
     };
     const replacements = {
-      'Minimapa':'map','Minimap':'map','Vida y maná':'hpmp','Health and mana':'hpmp','Equipo':'equipment','Equipment':'equipment','Skills':'skills','Habilidades':'skills','Batalla':'battleTitle','Battle':'battleTitle','VIP':'vip',
-      'Misiones':'quests','Quests':'quests','Opciones':'options','Options':'options','Ayuda':'help','Help':'help','Mochila':'bagTitle','Backpack':'bagTitle','Experiencia':'experience','Experience':'experience',
-      'Nivel':'level','Level':'level','Vida':'health','Health':'health','Maná':'mana','Mana':'mana','Capacidad':'capacity','Capacity':'capacity','Velocidad':'speed','Speed':'speed','Stamina':'stamina',
-      'Cuenta':'account','Account':'account','Contraseña':'password','Password':'password','Repite la contraseña':'repeat','Repeat password':'repeat','Nombre del personaje':'character','Character name':'character',
-      'Vocación':'vocation','Vocation':'vocation','Sexo':'sex','Sex':'sex','Hombre':'man','Male':'man','Mujer':'woman','Female':'woman','Entrar':'enter','Log in':'enter','Crear cuenta':'create','Create account':'create',
-      'Entrar al mundo':'world','Enter the world':'world','Recordar cuenta en este navegador':'remember','Remember account on this browser':'remember','Default':'default','Server Log':'serverLog',
-      'Parar':'stop','Falar':'speak','Batalha':'battle','Bolsa':'bag','Mensagem ou magia…':'chat'
+      'Cuenta':'account','Contraseña':'password','Repite la contraseña':'repeat','Nombre del personaje':'character','Vocación':'vocation','Sexo':'sex','Hombre':'man','Mujer':'woman','Entrar':'enter','Crear cuenta':'create','Entrar al mundo':'world','Recordar cuenta en este navegador':'remember','Sin vocación':'none','de 3 a 20 letras o números':'accountHint','al menos 4 caracteres':'passwordHint','Personajes de':'charactersOf','Cambiar de cuenta':'change','Mostrar la contraseña':'showPassword',
+      'Minimapa':'map','Vida y maná':'hpmp','Equipo':'equipment','Habilidades':'skills','Batalla':'battleTitle','Misiones':'quests','Opciones':'options','Ayuda':'help','Mochila':'bagTitle','Experiencia':'experience','Nivel':'level','Vida':'health','Maná':'mana','Capacidad':'capacity','Velocidad':'speed','Resistencia':'stamina','Default':'default','Server Log':'serverLog','sin conectar':'disconnected','Stop: dejar de atacar y de andar (Escape)':'stopTip','Quests: registro de misiones':'questsTip','Options: opciones del cliente':'optionsTip','Help: controles y comandos':'helpTip','Skills: nivel, experiencia y habilidades':'skillsTip','Battle: criaturas a la vista (clic para atacar)':'battleTip','VIP: tu lista de amigos':'vipTip','Logout: salir del juego':'logoutTip','Arrastra para cambiar el alto de la consola':'resizeTip','Clic derecho':'rightClick','Arrastrar':'drag','Escribir':'typing','sobre un monstruo, atacarlo (otra vez, dejarlo); sobre algo, usarlo (también en la mochila y en los cuerpos); sobre un contenedor, abrirlo o cerrarlo; sobre ti, tu ficha':'rightClickDesc','coger y mover cosas: al suelo, a tu equipo, a tu mochila o a un contenedor abierto':'dragDesc','usar lo que tienes delante (en modo /wasd)':'useFront','dejar de atacar':'stopAttack','tus hotkeys: magias y objetos (configúralas con Ctrl+K o el botón del teclado junto a la capacidad)':'hotkeysDesc','va directo al chat; Intro lo manda (con /wasd, Intro para empezar a escribir)':'typingDesc','curarte (gasta maná)':'healDesc','correr más (nivel 14)':'speedDesc','viajar a un sitio del mapa':'travelDesc','más comandos':'moreCommands',
+      'Intro para escribir: habla, lanza un hechizo (exura) o un comando (/ayuda)':'chatPlaceholder','Lo que se dice a tu alrededor y los avisos':'defaultTip','Sólo los mensajes del servidor':'serverTip','Minimizar':'minimize','Cerrar':'close'
     };
-    function applyLanguage(lang) {
-      language.value = lang;
-      const d = dictionary[lang];
-      document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
-      document.title = 'Forgotten Lands — ' + (lang === 'pt' ? 'RPG online' : 'online RPG');
-      const welcome = $('#jetyum-welcome');
-      if (welcome) {
-        $('[data-copy]', welcome).forEach(el => { const k=el.dataset.copy; if (d[k]) el.textContent=d[k]; });
-        $('.jw-lang button', welcome).forEach(b => b.classList.toggle('active', b.dataset.language===lang));
-      }
-      const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-      const nodes=[]; while(textWalker.nextNode()) nodes.push(textWalker.currentNode);
-      nodes.forEach(node => {
-        const original=node.nodeValue.trim();
-        const key=replacements[original];
-        if (key && d[key] && node.nodeValue.trim()===original) {
-          const leading=node.nodeValue.match(/^\\s*/)?.[0] || '';
-          const trailing=node.nodeValue.match(/\\s*$/)?.[0] || '';
+    const translations = {
+      pt:{account:'Conta',password:'Palavra-passe',repeat:'Repete a palavra-passe',character:'Nome do personagem',vocation:'Classe',sex:'Género',man:'Masculino',woman:'Feminino',enter:'Entrar',create:'Criar conta',world:'Entrar no mundo',remember:'Guardar conta neste navegador',none:'Sem classe',accountHint:'3 a 20 letras ou números',passwordHint:'pelo menos 4 caracteres',charactersOf:'Personagens de',change:'Mudar de conta',showPassword:'Mostrar palavra-passe',map:'Mapa',hpmp:'Vida e mana',equipment:'Equipamento',skills:'Atributos',battleTitle:'Combate',quests:'Missões',options:'Opções',help:'Ajuda',bagTitle:'Mochila',experience:'Experiência',level:'Nível',health:'Vida',mana:'Mana',capacity:'Capacidade',speed:'Velocidade',stamina:'Resistência',default:'Geral',serverLog:'Registo do servidor',disconnected:'Desligado',stopTip:'Parar: interromper movimento e ataque (Escape)',questsTip:'Missões: registo de missões',optionsTip:'Opções do jogo',helpTip:'Ajuda: controlos e comandos',skillsTip:'Atributos: nível, experiência e habilidades',battleTip:'Combate: criaturas visíveis (toca para atacar)',vipTip:'VIP: lista de amigos',logoutTip:'Sair do jogo',resizeTip:'Arrasta para alterar a altura do registo',rightClick:'Toque direito',drag:'Arrastar',typing:'Escrever',rightClickDesc:'Atacar uma criatura; usar um objeto; abrir um contentor; ver a tua ficha',dragDesc:'Mover objetos para o chão, equipamento, mochila ou contentores abertos',useFront:'Usar o que está à tua frente (modo /wasd)',stopAttack:'Parar de atacar',hotkeysDesc:'Atalhos para magias e objetos (configura em Ctrl+K)',typingDesc:'A mensagem vai para o chat; carrega em Enter para enviar',healDesc:'Curar-te (consome mana)',speedDesc:'Correr mais depressa (nível 14)',travelDesc:'Viajar para um local do mapa',moreCommands:'Mais comandos',chatPlaceholder:'Enter para escrever: conversa, lança uma magia (exura) ou comando (/ajuda)',defaultTip:'Mensagens próximas e avisos',serverTip:'Apenas mensagens do servidor',minimize:'Minimizar',close:'Fechar'},
+      en:{account:'Account',password:'Password',repeat:'Repeat password',character:'Character name',vocation:'Class',sex:'Gender',man:'Male',woman:'Female',enter:'Log in',create:'Create account',world:'Enter the world',remember:'Remember account on this browser',none:'No class',accountHint:'3 to 20 letters or numbers',passwordHint:'at least 4 characters',charactersOf:'Characters for',change:'Change account',showPassword:'Show password',map:'Map',hpmp:'Health and mana',equipment:'Equipment',skills:'Skills',battleTitle:'Battle',quests:'Quests',options:'Options',help:'Help',bagTitle:'Backpack',experience:'Experience',level:'Level',health:'Health',mana:'Mana',capacity:'Capacity',speed:'Speed',stamina:'Stamina',default:'Default',serverLog:'Server Log',disconnected:'Disconnected',stopTip:'Stop: stop moving and attacking (Escape)',questsTip:'Quests: quest log',optionsTip:'Game options',helpTip:'Help: controls and commands',skillsTip:'Skills: level, experience and abilities',battleTip:'Battle: visible creatures (tap to attack)',vipTip:'VIP: friends list',logoutTip:'Log out of the game',resizeTip:'Drag to resize the log panel',rightClick:'Right-click',drag:'Drag',typing:'Typing',rightClickDesc:'Attack a creature; use an object; open a container; view your character',dragDesc:'Move items to the ground, equipment, backpack, or open containers',useFront:'Use what is in front of you (/wasd mode)',stopAttack:'Stop attacking',hotkeysDesc:'Shortcuts for spells and items (configure with Ctrl+K)',typingDesc:'Messages go to chat; press Enter to send',healDesc:'Heal yourself (uses mana)',speedDesc:'Run faster (level 14)',travelDesc:'Travel to a map location',moreCommands:'More commands',chatPlaceholder:'Press Enter to chat, cast a spell (exura), or use a command (/help)',defaultTip:'Nearby chat and notifications',serverTip:'Server messages only',minimize:'Minimize',close:'Close'}
+    };
+    const originalText = new WeakMap();
+    const originalAttrs = new WeakMap();
+    function translatePage(lang) {
+      const d=translations[lang];
+      const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+      const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node=>{
+        if(!originalText.has(node)) originalText.set(node,node.nodeValue);
+        const original=originalText.get(node);
+        const key=replacements[original.trim()];
+        if(key && d[key]) {
+          const leading=original.match(/^\\s*/)?.[0]||'', trailing=original.match(/\\s*$/)?.[0]||'';
           node.nodeValue=leading+d[key]+trailing;
-        }
+        } else if (node.parentElement?.closest('#jetyum-welcome')) { /* landing page uses its own dictionary */ }
       });
-      $('[title]').forEach(el => {
-        const old=el.getAttribute('title');
-        const map={ 'Minimizar':lang==='pt'?'Minimizar':'Minimise','Cerrar':lang==='pt'?'Fechar':'Close','Acercar el minimapa':lang==='pt'?'Aproximar minimapa':'Zoom minimap in','Alejar el minimapa':lang==='pt'?'Afastar minimapa':'Zoom minimap out'};
-        if(map[old]) el.title=map[old];
+      document.querySelectorAll('input[placeholder],button[title],[title],option').forEach(el=>{
+        if(!originalAttrs.has(el)) originalAttrs.set(el,{placeholder:el.getAttribute('placeholder'),title:el.getAttribute('title'),text:el.tagName==='OPTION'?el.textContent:null});
+        const a=originalAttrs.get(el);
+        if(a.placeholder) {const k=replacements[a.placeholder]; if(k&&d[k]) el.placeholder=d[k];}
+        if(a.title) {const k=replacements[a.title]; if(k&&d[k]) el.title=d[k];}
+        if(a.text!==null) {const k=replacements[a.text.trim()]; if(k&&d[k]) el.textContent=d[k];}
       });
+      document.documentElement.lang=lang==='pt'?'pt-PT':'en';
+    }
+    function applyLanguage(lang) {
+      language.value=lang;
+      const d=dictionary[lang];
+      document.documentElement.lang=lang==='pt'?'pt-PT':'en';
+      document.title='Forgotten Lands — '+(lang==='pt'?'MMORPG online':'online MMORPG');
+      const welcome=$('#jetyum-welcome');
+      if(welcome) {
+        $$('[data-copy]',welcome).forEach(el=>{const k=el.dataset.copy;if(d[k])el.textContent=d[k];});
+        $$('.jw-lang button',welcome).forEach(b=>b.classList.toggle('active',b.dataset.language===lang));
+      }
+      translatePage(lang);
       const chatInput=$('#mobile-chat-input'); if(chatInput) chatInput.placeholder=d.chat;
       const stopBtn=$('#m-stop'); if(stopBtn) stopBtn.textContent=d.stop;
       const battleBtn=$('#m-attack'); if(battleBtn) battleBtn.textContent=d.battle;
       const bagBtn=$('#m-bag'); if(bagBtn) bagBtn.textContent=d.bag;
       const speakBtn=$('#m-chat-focus'); if(speakBtn) speakBtn.textContent=d.speak;
-      const panelBtn=$('#m-panels-toggle'); if(panelBtn) panelBtn.textContent=lang==='pt'?'☰ Menu':'☰ Menu';
       const mlang=$('#m-lang'); if(mlang) mlang.textContent=lang==='pt'?'PT':'EN';
     }
-    const welcome = document.createElement('section');
+        const welcome = document.createElement('section');
     welcome.id='jetyum-welcome';
     welcome.innerHTML=`
       <div class="jw-wrap">
