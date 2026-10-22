@@ -32,10 +32,14 @@ function createNetworkServer(options) {
         throw new Error('createNetworkServer necesita un motor');
     }
 
-    const wss = new WebSocketServer({
-        port: opts.port,
-        host: opts.host || '0.0.0.0'
-    });
+    // Render publica un solo puerto HTTP; en producción el WebSocket comparte
+    // ese servidor HTTP. En desarrollo se mantiene el puerto WebSocket separado.
+    const wss = opts.server
+        ? new WebSocketServer({ server: opts.server })
+        : new WebSocketServer({
+            port: opts.port,
+            host: opts.host || '0.0.0.0'
+        });
 
     /** Conexiones vivas: socket -> { session, queue } */
     const connections = new Map();
@@ -50,10 +54,15 @@ function createNetworkServer(options) {
      * las pruebas, para que el sistema elija uno libre) no hay forma de saber el
      * puerto sin esperar. Sin esto, la prueba fallaba con un `ws://127.0.0.1:null`.
      */
-    const ready = new Promise((resolve, reject) => {
-        wss.once('listening', () => resolve(wss.address().port));
-        wss.once('error', reject);
-    });
+    const ready = opts.server && opts.server.listening
+        ? Promise.resolve(opts.server.address().port)
+        : new Promise((resolve, reject) => {
+            wss.once('listening', () => {
+                const address = wss.address() || (opts.server && opts.server.address());
+                resolve(address ? address.port : opts.port);
+            });
+            wss.once('error', reject);
+        });
 
     wss.on('connection', (socket, request) => {
         const queue = [];
