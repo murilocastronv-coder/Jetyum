@@ -179,7 +179,10 @@
     applyLanguage(language.value);
     const translationObserver = new MutationObserver(() => { if (!translationObserver._busy) { translationObserver._busy = true; translationObserver.disconnect(); translatePage(language.value); translationObserver.observe(document.body,{subtree:true,childList:true}); translationObserver._busy = false; } });
     translationObserver.observe(document.body,{subtree:true,childList:true});
-    const overlay=$('#overlay'); if(overlay) overlay.hidden=true;
+    const overlay=$('#overlay');
+    // Show the landing page first; login appears only after the player taps Play.
+    welcome.hidden = false;
+    if (overlay) { overlay.hidden = true; overlay.style.display = 'none'; }
 
 
     const panel = $('#mobile-panels');
