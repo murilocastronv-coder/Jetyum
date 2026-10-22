@@ -1603,9 +1603,16 @@ async function urlDelMotor() {
         }
     }
 
-    return override
-        ? protocol + '//' + override
-        : protocol + '//' + window.location.hostname + ':' + puerto;
+    // En alojamientos HTTPS como Render, el proxy publica el sitio por 443 y
+    // reenvía WebSocket al mismo puerto interno. No se debe exponer :10000 al navegador.
+    // En desarrollo local, la página sí usa un puerto separado del motor.
+    if (override) {
+        return protocol + '//' + override;
+    }
+    if (!window.location.port) {
+        return protocol + '//' + window.location.host;
+    }
+    return protocol + '//' + window.location.hostname + ':' + puerto;
 }
 
 const CLAVE_CUENTA = 'jetyum.cuenta';
