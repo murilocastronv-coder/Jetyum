@@ -38,10 +38,16 @@
 
     const panel = $('#mobile-panels');
     const side = $('#lateral');
-    if (side) {
-      const ids = ['ventana-minimapa','ventana-vida','ventana-equipo','ventana-skills','ventana-batalla','ventana-vip','ventana-misiones','ventana-opciones','ventana-ayuda','ventana-mochila'];
-      ids.forEach(id => { const el = $('#'+id); if (el) panel.appendChild(el); });
-    }
+    const originalColumn = $('#columna-der');
+    const ids = ['ventana-minimapa','ventana-vida','ventana-equipo','ventana-skills','ventana-batalla','ventana-vip','ventana-misiones','ventana-opciones','ventana-ayuda','ventana-mochila'];
+    const syncPanelPlacement = () => {
+      if (isMobile()) {
+        ids.forEach(id => { const el = $('#'+id); if (el && el.parentElement !== panel) panel.appendChild(el); });
+      } else if (originalColumn) {
+        ids.forEach(id => { const el = $('#'+id); if (el && el.parentElement !== originalColumn) originalColumn.appendChild(el); });
+      }
+    };
+    syncPanelPlacement();
     const panelsToggle = () => {
       panel.classList.toggle('open');
       document.body.classList.toggle('mobile-panels-open', panel.classList.contains('open'));
@@ -104,7 +110,10 @@
       if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key)) e.preventDefault();
     }, {passive:false});
     document.addEventListener('contextmenu', e => { if (isMobile()) e.preventDefault(); });
-    window.addEventListener('resize', () => { if (!isMobile()) { panel.classList.remove('open'); chat.classList.remove('open'); } });
+    window.addEventListener('resize', () => {
+      syncPanelPlacement();
+      if (!isMobile()) { panel.classList.remove('open'); chat.classList.remove('open'); }
+    });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, {once:true}); else mount();
 })();
