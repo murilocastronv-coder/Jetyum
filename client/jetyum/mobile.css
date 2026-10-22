@@ -82,3 +82,5 @@
 .jw-icon { font-size:26px; }
 .jw-foot { color:#71809a; font-size:12px; margin-top:28px; }
 @media(max-width:620px) { #jetyum-welcome { padding:18px; align-items:flex-start; } .jw-nav { margin-bottom:40px; } .jw-features { grid-template-columns:1fr; } .jw-feature { display:grid; grid-template-columns:38px 1fr; column-gap:8px; padding:13px; } .jw-icon { grid-row:span 2; } .jw-feature strong { margin:0 0 3px; } .jw-cta button { flex:1; min-height:50px; } }
+
+#overlay[hidden] { display:none !important; }
