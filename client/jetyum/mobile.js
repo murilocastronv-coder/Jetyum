@@ -89,15 +89,15 @@
         const key=replacements[original.trim()];
         if(key && d[key]) {
           const leading=original.match(/^\\s*/)?.[0]||'', trailing=original.match(/\\s*$/)?.[0]||'';
-          node.nodeValue=leading+d[key]+trailing;
+          const next=leading+d[key]+trailing; if(node.nodeValue!==next) node.nodeValue=next;
         } else if (node.parentElement?.closest('#jetyum-welcome')) { /* landing page uses its own dictionary */ }
       });
       document.querySelectorAll('input[placeholder],button[title],[title],option').forEach(el=>{
         if(!originalAttrs.has(el)) originalAttrs.set(el,{placeholder:el.getAttribute('placeholder'),title:el.getAttribute('title'),text:el.tagName==='OPTION'?el.textContent:null});
         const a=originalAttrs.get(el);
-        if(a.placeholder) {const k=replacements[a.placeholder]; if(k&&d[k]) el.placeholder=d[k];}
-        if(a.title) {const k=replacements[a.title]; if(k&&d[k]) el.title=d[k];}
-        if(a.text!==null) {const k=replacements[a.text.trim()]; if(k&&d[k]) el.textContent=d[k];}
+        if(a.placeholder) {const k=replacements[a.placeholder]; if(k&&d[k]&&el.placeholder!==d[k]) el.placeholder=d[k];}
+        if(a.title) {const k=replacements[a.title]; if(k&&d[k]&&el.title!==d[k]) el.title=d[k];}
+        if(a.text!==null) {const k=replacements[a.text.trim()]; if(k&&d[k]&&el.textContent!==d[k]) el.textContent=d[k];}
       });
       document.documentElement.lang=lang==='pt'?'pt-PT':'en';
     }
@@ -177,7 +177,19 @@
     const originalApplyLanguage=applyLanguage;
     applyLanguage = (lang) => { originalApplyLanguage(lang); syncLandingLanguage(lang); };
     applyLanguage(language.value);
-    const translationObserver = new MutationObserver(() => { if (!translationObserver._busy) { translationObserver._busy = true; translationObserver.disconnect(); translatePage(language.value); translationObserver.observe(document.body,{subtree:true,childList:true}); translationObserver._busy = false; } });
+    // Re-translate dynamic text at most once per 300 ms. Running it synchronously inside the
+    // observer froze the page (blank screen): each pass mutated the DOM and re-triggered itself.
+    let translateTimer = null;
+    const translationObserver = new MutationObserver(() => {
+      if (translateTimer) return;
+      translateTimer = setTimeout(() => {
+        translationObserver.disconnect();
+        try { translatePage(language.value); } catch (err) { console.warn('translatePage', err); }
+        translationObserver.takeRecords();
+        translationObserver.observe(document.body,{subtree:true,childList:true});
+        translateTimer = null;
+      }, 300);
+    });
     translationObserver.observe(document.body,{subtree:true,childList:true});
     const overlay=$('#overlay');
     // Show the landing page first; login appears only after the player taps Play.

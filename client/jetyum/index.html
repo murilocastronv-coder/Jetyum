@@ -695,7 +695,7 @@
     .pj-pie { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 10px; border-top: 1px solid #2a2a3a; }
     .pj-guardar { background: #1f4a36 !important; border-color: #3fd6a0 !important; }
 </style>
-<link rel="stylesheet" href="/jetyum/mobile.css?v=20261022-homepage-v3">
+<link rel="stylesheet" href="/jetyum/mobile.css?v=20261022-homepage-v4">
 </head>
 <body>
 <div id="layout">
@@ -898,42 +898,7 @@
     </section>
 </div>
 
-<section id="static-landing" style="position:fixed;inset:0;z-index:100;overflow:auto;background:radial-gradient(ellipse at 50% 0%,#354b68,#141c2b 48%,#070a10);color:#f4f6ff;font:16px/1.55 system-ui,sans-serif;padding:20px;box-sizing:border-box">
-  <div style="max-width:900px;margin:0 auto">
-    <header style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0 32px">
-      <strong style="letter-spacing:.14em;font-size:18px">FORGOTTEN <span style="color:#d7bb80">LANDS</span></strong>
-      <div style="display:flex;gap:8px"><button type="button" data-static-lang="pt" style="padding:9px;border-radius:8px">🇵🇹 Português</button><button type="button" data-static-lang="en" style="padding:9px;border-radius:8px">🇬🇧 English</button></div>
-    </header>
-    <p id="static-kicker" style="color:#b4d7f9;text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:800">MMORPG de fantasia • aventura online</p>
-    <h1 id="static-title" style="font-size:clamp(38px,9vw,72px);line-height:1.02;margin:14px 0">O teu destino está por escrever.</h1>
-    <p id="static-intro" style="font-size:18px;max-width:720px;color:#d0d9e7">Entra em Forgotten Lands, cria o teu herói, explora terras misteriosas, enfrenta monstros e conquista tesouros.</p>
-    <button id="static-play" type="button" style="margin:16px 0 24px;width:100%;max-width:360px;min-height:54px;padding:14px;border:1px solid #e4c78d;border-radius:12px;font-weight:900;background:linear-gradient(135deg,#f7e5b4,#cda45d);color:#20180b">⚔ JOGAR AGORA</button>
-    <div style="border:1px solid #62738a;border-radius:16px;padding:22px;background:linear-gradient(145deg,#1b293d,#111927)">
-      <h2 id="static-section" style="margin-top:0">A tua aventura começa aqui</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
-        <article><h3 id="static-f1">🗺️ Explora terras esquecidas</h3><p id="static-d1">Descobre mapas, novos lugares e segredos deste mundo.</p></article>
-        <article><h3 id="static-f2">⚔️ Combate e evolução</h3><p id="static-d2">Enfrenta criaturas, ganha experiência e sobe de nível.</p></article>
-        <article><h3 id="static-f3">🎒 Tesouros e equipamento</h3><p id="static-d3">Recolhe objetos e prepara o teu herói para novos desafios.</p></article>
-      </div>
-    </div>
-    <p id="static-foot" style="color:#9aa9bd;font-size:12px;margin-top:20px">Forgotten Lands é um MMORPG em desenvolvimento. Joga no telemóvel ou computador.</p>
-  </div>
-</section>
-<script>
-(function(){
- const landing=document.getElementById('static-landing'), overlay=document.getElementById('overlay');
- const copy={
- pt:{k:'MMORPG de fantasia • aventura online',title:'O teu destino está por escrever.',intro:'Entra em Forgotten Lands, cria o teu herói, explora terras misteriosas, enfrenta monstros e conquista tesouros.',play:'⚔ JOGAR AGORA',section:'A tua aventura começa aqui',f1:'🗺️ Explora terras esquecidas',d1:'Descobre mapas, novos lugares e segredos deste mundo.',f2:'⚔️ Combate e evolução',d2:'Enfrenta criaturas, ganha experiência e sobe de nível.',f3:'🎒 Tesouros e equipamento',d3:'Recolhe objetos e prepara o teu herói para novos desafios.',foot:'Forgotten Lands é um MMORPG em desenvolvimento. Joga no telemóvel ou computador.'},
- en:{k:'Fantasy MMORPG • online adventure',title:'Your destiny is unwritten.',intro:'Enter Forgotten Lands, create your hero, explore mysterious lands, battle monsters, and claim treasures.',play:'⚔ PLAY NOW',section:'Your adventure starts here',f1:'🗺️ Explore forgotten lands',d1:'Discover maps, new places, and secrets in this world.',f2:'⚔️ Combat and progression',d2:'Fight creatures, earn experience, and level up.',f3:'🎒 Treasures and equipment',d3:'Collect items and prepare your hero for greater challenges.',foot:'Forgotten Lands is an MMORPG in development. Play on phone or computer.'}
- };
- function setLang(lang){const d=copy[lang];Object.keys(d).forEach(k=>{const el=document.getElementById('static-'+k);if(el)el.textContent=d[k]});document.documentElement.lang=lang;}
- document.querySelectorAll('[data-static-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.staticLang)));
- document.getElementById('static-play').addEventListener('click',()=>{landing.style.display='none';if(overlay){overlay.hidden=false;overlay.style.display='flex';}});
- if(overlay){overlay.hidden=true;overlay.style.display='none';}
- setLang((navigator.language||'pt').toLowerCase().startsWith('pt')?'pt':'en');
-})();
-</script>
-<div id="overlay">
+<div id="overlay" hidden>
     <form id="login" autocomplete="on">
         <h1>Forgotten Lands</h1>
         <div class="login-pestanas" role="tablist">
@@ -1016,7 +981,7 @@
     Se carga como módulo ES. Las rutas de los imports son las del MONTAJE del servidor estático:
     este cliente vive en `/jetyum/` y el protocolo compartido en `/shared/`.
 -->
-<script src="/jetyum/mobile.js?v=20261022-homepage-v3" defer></script>
+<script src="/jetyum/mobile.js?v=20261022-homepage-v4" defer></script>
 <script type="module" src="/jetyum/js/main.js"></script>
 </body>
 </html>
