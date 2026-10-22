@@ -1,0 +1,59 @@
+/* Jetyum mobile layout */
+:root { --mobile-controls-h: 112px; }
+#mobile-hud { display:none; }
+@media (max-width: 760px), (pointer: coarse) {
+  html, body { width:100%; height:100%; height:100dvh; overflow:hidden; overscroll-behavior:none; touch-action:manipulation; }
+  #layout { position:fixed; inset:0; width:100%; height:100%; height:100dvh;
+    display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr);
+    grid-template-areas:"stage"; }
+  #stage { grid-area:stage; position:absolute; inset:0; width:100%; height:100%; }
+  #game { width:100%; height:100%; touch-action:none; image-rendering:pixelated; }
+  #lateral, #lateral-izq, #separador, #consola { display:none !important; }
+  #mobile-hud { display:block; position:fixed; inset:0; z-index:45; pointer-events:none; font:600 12px/1.2 system-ui,sans-serif; }
+  #mobile-top { position:absolute; top:env(safe-area-inset-top, 0px); left:8px; right:8px;
+    display:flex; align-items:center; justify-content:space-between; gap:6px; pointer-events:none; }
+  #mobile-top .mgroup { display:flex; gap:6px; pointer-events:auto; }
+  .m-btn { min-width:42px; min-height:42px; padding:6px 10px; border:1px solid #67738b;
+    border-radius:12px; background:rgba(17,22,34,.9); color:#fff; font:inherit;
+    box-shadow:0 2px 8px #0008; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  .m-btn:active, .m-btn.active { background:#28548a; border-color:#8fc6ff; }
+  #mobile-status { max-width:34vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    color:#e5e9f4; background:#101522c9; border-radius:8px; padding:8px; pointer-events:none; }
+  #mobile-bottom { position:absolute; left:10px; right:10px; bottom:calc(env(safe-area-inset-bottom, 0px) + 8px);
+    display:flex; justify-content:space-between; align-items:flex-end; gap:10px; pointer-events:none; }
+  #mobile-dpad { display:grid; grid-template-columns:repeat(3,48px); grid-template-rows:repeat(2,48px); gap:4px; pointer-events:auto; }
+  #mobile-dpad button { min-width:48px; min-height:48px; padding:0; font-size:22px; border-radius:14px;
+    background:rgba(18,23,34,.86); border:1px solid #66758c; color:#fff; touch-action:none; }
+  #mobile-dpad [data-dir="up"] { grid-column:2; grid-row:1; }
+  #mobile-dpad [data-dir="left"] { grid-column:1; grid-row:2; }
+  #mobile-dpad [data-dir="down"] { grid-column:2; grid-row:2; }
+  #mobile-dpad [data-dir="right"] { grid-column:3; grid-row:2; }
+  #mobile-actions { display:grid; grid-template-columns:repeat(2,minmax(54px,1fr)); gap:6px; pointer-events:auto; }
+  #mobile-actions .m-btn { min-width:58px; min-height:48px; font-size:12px; }
+  #mobile-panels { position:absolute; top:58px; right:8px; bottom:calc(env(safe-area-inset-bottom, 0px) + 118px);
+    width:min(82vw,320px); overflow:auto; pointer-events:auto; display:none; background:#111520f2;
+    border:1px solid #4a5367; border-radius:12px; padding:8px; box-shadow:0 8px 28px #000a; }
+  #mobile-panels.open { display:block; }
+  #mobile-panels .ventana { display:flex !important; width:100% !important; max-height:48vh; margin-bottom:8px; }
+  #mobile-panels .ventana[hidden] { display:none !important; }
+  #mobile-panels .ventana-cuerpo { overflow:auto; }
+  #mobile-panels #caja-minimapa { justify-content:flex-start; }
+  #mobile-panels #minimapa { width:min(42vw,132px); height:auto; aspect-ratio:1; }
+  #mobile-chat { position:absolute; left:8px; right:8px; bottom:calc(env(safe-area-inset-bottom, 0px) + 6px);
+    display:none; pointer-events:auto; }
+  #mobile-chat.open { display:block; }
+  #mobile-chat input { width:100%; min-height:44px; border:1px solid #71809a; border-radius:12px;
+    padding:10px 12px; color:#fff; background:#111520f5; font:16px system-ui,sans-serif; }
+  #overlay { padding:12px; overflow:auto; }
+  #login { max-height:calc(100dvh - 24px); overflow:auto; padding:18px; }
+  #login input, #login select { min-height:42px; font-size:16px; }
+  body.mobile-fullscreen #mobile-top { top:env(safe-area-inset-top, 0px); }
+  body.mobile-panels-open #mobile-bottom { opacity:.25; }
+}
+@media (orientation:landscape) and (max-height:500px) and (pointer:coarse) {
+  #mobile-dpad { grid-template-columns:repeat(3,42px); grid-template-rows:repeat(2,40px); }
+  #mobile-dpad button { min-width:42px; min-height:40px; }
+  #mobile-actions { grid-template-columns:repeat(4,auto); }
+  #mobile-actions .m-btn { min-height:42px; min-width:50px; }
+  #mobile-bottom { align-items:flex-end; }
+}
