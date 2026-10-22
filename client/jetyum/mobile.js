@@ -41,10 +41,10 @@
     const dictionary = {
       pt: {
         kicker:'MMORPG de fantasia • aventura online', title:'O teu destino está por escrever.', intro:'Entra em Forgotten Lands, cria o teu herói, explora terras misteriosas, enfrenta monstros, conquista tesouros e torna-te uma lenda. A aventura espera por ti.',
-        play:'Jogar agora', learn:'Como jogar', feature1:'Explora o mundo', desc1:'Viaja pelo mapa, descobre lugares e encontra criaturas pelo caminho.',
-        feature2:'Combate e progresso', desc2:'Enfrenta monstros, ganha experiência e melhora o teu personagem.',
-        feature3:'Equipamento e inventário', desc3:'Recolhe objetos, gere a mochila e organiza o teu equipamento.',
-        foot:'Forgotten Lands é um RPG em desenvolvimento. Algumas funcionalidades podem mudar.', mobile:'Feito para jogar no telemóvel ou computador.',
+        play:'⚔ ENTRAR NA AVENTURA', learn:'✦ DESCOBRIR O JOGO', feature1:'Explora terras esquecidas', desc1:'Percorre mapas, revela novos lugares e descobre os segredos deste mundo.',
+        feature2:'Combate e evolução', desc2:'Enfrenta criaturas, ganha experiência, sobe de nível e melhora as tuas habilidades.',
+        feature3:'Tesouros e equipamento', desc3:'Recolhe saque, organiza a mochila e prepara o teu herói para desafios maiores.',
+        foot:'Forgotten Lands é um MMORPG em desenvolvimento. As funcionalidades podem evoluir.', mobile:'Joga no telemóvel ou computador • Interface adaptada a ecrãs pequenos.',
         stop:'⏹ Parar', battle:'⚔ Batalha', bag:'🎒 Mochila', speak:'✎ Chat', chat:'Mensagem, comando ou magia…',
         enter:'Entrar', create:'Criar conta', account:'Conta', password:'Palavra-passe', repeat:'Repete a palavra-passe',
         character:'Nome do personagem', vocation:'Vocação', sex:'Sexo', man:'Homem', woman:'Mulher', remember:'Memorizar conta neste navegador',
@@ -55,10 +55,10 @@
       },
       en: {
         kicker:'Fantasy MMORPG • online adventure', title:'Your destiny is unwritten.', intro:'Enter Forgotten Lands, create your hero, explore mysterious lands, battle monsters, claim treasures, and become a legend. Your adventure awaits.',
-        play:'Play now', learn:'How to play', feature1:'Explore the world', desc1:'Travel across the map, discover new places, and encounter creatures along the way.',
-        feature2:'Combat and progression', desc2:'Fight monsters, earn experience, and improve your character.',
-        feature3:'Gear and inventory', desc3:'Collect items, manage your backpack, and organise your equipment.',
-        foot:'Forgotten Lands is an RPG in development. Some features may change.', mobile:'Designed for phones and computers.',
+        play:'⚔ ENTER THE ADVENTURE', learn:'✦ DISCOVER THE GAME', feature1:'Explore forgotten lands', desc1:'Travel across maps, uncover new places, and discover the secrets of this world.',
+        feature2:'Combat and progression', desc2:'Fight creatures, earn experience, level up, and improve your abilities.',
+        feature3:'Loot and equipment', desc3:'Collect loot, manage your backpack, and prepare your hero for greater challenges.',
+        foot:'Forgotten Lands is an MMORPG in development. Features may evolve.', mobile:'Play on your phone or computer • Designed for mobile screens.',
         stop:'⏹ Stop', battle:'⚔ Battle', bag:'🎒 Backpack', speak:'✎ Chat', chat:'Message, command, or spell…',
         enter:'Log in', create:'Create account', account:'Account', password:'Password', repeat:'Repeat password',
         character:'Character name', vocation:'Vocation', sex:'Sex', man:'Male', woman:'Female', remember:'Remember account on this browser',
@@ -150,7 +150,6 @@
     $('#jw-play').addEventListener('click',enterLogin);
     $('#jw-play-bottom').addEventListener('click',enterLogin);
     $('#m-lang').addEventListener('click',()=>applyLanguage(language.value==='pt'?'en':'pt'));
-    $('#jw-play').addEventListener('click',()=>{welcome.hidden=true; const overlay=$('#overlay'); if(overlay) overlay.hidden=false;});
     $('#jw-learn').addEventListener('click',()=>$('#jw-how-title')?.scrollIntoView({behavior:'smooth',block:'center'}));
     const syncLandingLanguage = lang => {
       const pt=lang==='pt';
