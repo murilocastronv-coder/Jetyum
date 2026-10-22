@@ -130,8 +130,12 @@ function crearServidorWeb(o) {
             res.end();
             return;
         }
-        if (ruta === '/' || ruta === '/jetyum') {
-            res.writeHead(302, { Location: '/jetyum/' });
+        if (ruta === '/') {
+            const archivoInicio = path.join(raiz, 'client/jetyum/index.html');
+            if (enviarArchivo(req, res, archivoInicio)) return;
+        }
+        if (ruta === '/jetyum') {
+            res.writeHead(301, { Location: '/' });
             res.end();
             return;
         }
