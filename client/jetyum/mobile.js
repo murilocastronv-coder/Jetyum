@@ -4,7 +4,7 @@
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
   const isMobile = () => matchMedia('(max-width: 760px), (pointer: coarse)').matches;
   function keyEvent(type, key) {
-    document.dispatchEvent(new KeyboardEvent(type, {key, code:key.startsWith('Arrow') ? key : key, bubbles:true, cancelable:true}));
+    window.dispatchEvent(new KeyboardEvent(type, {key, code:key.startsWith('Arrow') ? key : key, bubbles:true, cancelable:true}));
   }
   function tapKey(key) { keyEvent('keydown', key); setTimeout(() => keyEvent('keyup', key), 90); }
   function mount() {
@@ -37,7 +37,7 @@
       <form id="mobile-chat"><input id="mobile-chat-input" autocomplete="off" placeholder="Mensagem ou magia…"></form>`;
     document.body.appendChild(hud);
 
-    const language = { value: (navigator.language || 'en').toLowerCase().startsWith('pt') ? 'pt' : 'en' };
+    const language = { value: (navigator.language || 'pt').toLowerCase().startsWith('pt') ? 'pt' : 'en' };
     const dictionary = {
       pt: {
         kicker:'MMORPG de fantasia • aventura online', title:'O teu destino está por escrever.', intro:'Entra em Forgotten Lands, cria o teu herói, explora terras misteriosas, enfrenta monstros, conquista tesouros e torna-te uma lenda. A aventura espera por ti.',
