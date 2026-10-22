@@ -695,7 +695,7 @@
     .pj-pie { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 10px; border-top: 1px solid #2a2a3a; }
     .pj-guardar { background: #1f4a36 !important; border-color: #3fd6a0 !important; }
 </style>
-<link rel="stylesheet" href="/jetyum/mobile.css">
+<link rel="stylesheet" href="/jetyum/mobile.css?v=20261022-landing-fix">
 </head>
 <body>
 <div id="layout">
@@ -898,7 +898,7 @@
     </section>
 </div>
 
-<div id="overlay">
+<div id="overlay" hidden>
     <form id="login" autocomplete="on">
         <h1>Forgotten Lands</h1>
         <div class="login-pestanas" role="tablist">
@@ -981,7 +981,7 @@
     Se carga como módulo ES. Las rutas de los imports son las del MONTAJE del servidor estático:
     este cliente vive en `/jetyum/` y el protocolo compartido en `/shared/`.
 -->
-<script src="/jetyum/mobile.js" defer></script>
+<script src="/jetyum/mobile.js?v=20261022-landing-fix" defer></script>
 <script type="module" src="/jetyum/js/main.js"></script>
 </body>
 </html>
