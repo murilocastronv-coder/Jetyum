@@ -69,12 +69,12 @@
       }
     };
     const replacements = {
-      'Minimapa':'map','Vida y maná':'hpmp','Equipo':'equipment','Skills':'skills','Batalla':'battleTitle','VIP':'vip',
-      'Misiones':'quests','Opciones':'options','Ayuda':'help','Mochila':'bagTitle','Experiencia':'experience',
-      'Nivel':'level','Vida':'health','Maná':'mana','Capacidad':'capacity','Velocidad':'speed','Stamina':'stamina',
-      'Cuenta':'account','Contraseña':'password','Repite la contraseña':'repeat','Nombre del personaje':'character',
-      'Vocación':'vocation','Sexo':'sex','Hombre':'man','Mujer':'woman','Entrar':'enter','Crear cuenta':'create',
-      'Entrar al mundo':'world','Recordar cuenta en este navegador':'remember','Default':'default','Server Log':'serverLog',
+      'Minimapa':'map','Minimap':'map','Vida y maná':'hpmp','Health and mana':'hpmp','Equipo':'equipment','Equipment':'equipment','Skills':'skills','Habilidades':'skills','Batalla':'battleTitle','Battle':'battleTitle','VIP':'vip',
+      'Misiones':'quests','Quests':'quests','Opciones':'options','Options':'options','Ayuda':'help','Help':'help','Mochila':'bagTitle','Backpack':'bagTitle','Experiencia':'experience','Experience':'experience',
+      'Nivel':'level','Level':'level','Vida':'health','Health':'health','Maná':'mana','Mana':'mana','Capacidad':'capacity','Capacity':'capacity','Velocidad':'speed','Speed':'speed','Stamina':'stamina',
+      'Cuenta':'account','Account':'account','Contraseña':'password','Password':'password','Repite la contraseña':'repeat','Repeat password':'repeat','Nombre del personaje':'character','Character name':'character',
+      'Vocación':'vocation','Vocation':'vocation','Sexo':'sex','Sex':'sex','Hombre':'man','Male':'man','Mujer':'woman','Female':'woman','Entrar':'enter','Log in':'enter','Crear cuenta':'create','Create account':'create',
+      'Entrar al mundo':'world','Enter the world':'world','Recordar cuenta en este navegador':'remember','Remember account on this browser':'remember','Default':'default','Server Log':'serverLog',
       'Parar':'stop','Falar':'speak','Batalha':'battle','Bolsa':'bag','Mensagem ou magia…':'chat'
     };
     function applyLanguage(lang) {
