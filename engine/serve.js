@@ -57,29 +57,56 @@ async function main() {
         logLevel: args.verbose ? 'debug' : 'info'
     });
 
-    const port = args.port === null ? engine.config.enginePort : args.port;
+    // En Render hay un único puerto público. El cliente web y WebSocket
+    // comparten el servidor HTTP para que el navegador pueda conectar por WSS.
+    const renderPort = process.env.PORT ? Number(process.env.PORT) : null;
+    const port = args.port === null ? (renderPort || engine.config.enginePort) : args.port;
+    let web = null;
+    let webPort = null;
+    let network;
 
-    const network = createNetworkServer({
-        engine: engine,
-        port: port,
-        logger: engine.log,
-        verbose: args.verbose
-    });
+    if (args.web) {
+        if (renderPort) {
+            engine.config.enginePort = renderPort;
+            engine.config.webPort = renderPort;
+            web = crearServidorWeb({
+                raiz: rootDir,
+                config: engine.config,
+                puerto: renderPort,
+                log: engine.log
+            });
+            webPort = await web.listo;
+            network = createNetworkServer({
+                engine: engine,
+                server: web.servidor,
+                logger: engine.log,
+                verbose: args.verbose
+            });
+        } else {
+            network = createNetworkServer({
+                engine: engine,
+                port: port,
+                logger: engine.log,
+                verbose: args.verbose
+            });
+            web = crearServidorWeb({
+                raiz: rootDir,
+                config: engine.config,
+                puerto: args.webPort === null ? (engine.config.webPort || 8000) : args.webPort,
+                log: engine.log
+            });
+            webPort = await web.listo;
+        }
+    } else {
+        network = createNetworkServer({
+            engine: engine,
+            port: port,
+            logger: engine.log,
+            verbose: args.verbose
+        });
+    }
 
-    // Se espera a que el servidor este ENLAZADO antes de seguir. Enlazar es
-    // asincrono, asi que preguntar el puerto aqui mismo devolvia null y el
-    // arranque anunciaba "ws://localhost:null", que es un mensaje peor que no
-    // anunciar nada.
     const realPort = await network.ready;
-
-    // El servidor web: el cliente del navegador (client/jetyum) y lo compartido (shared).
-    const web = args.web ? crearServidorWeb({
-        raiz: rootDir,
-        config: engine.config,
-        puerto: args.webPort === null ? (engine.config.webPort || 8000) : args.webPort,
-        log: engine.log
-    }) : null;
-    const webPort = web ? await web.listo : null;
 
     // El motor arranca DESPUES de la red, para que el primer tick ya encuentre las
     // conexiones registradas y no se pierda el mapa inicial de nadie que entrara en
