@@ -104,6 +104,11 @@
         if(map[old]) el.title=map[old];
       });
       const chatInput=$('#mobile-chat-input'); if(chatInput) chatInput.placeholder=d.chat;
+      const stopBtn=$('#m-stop'); if(stopBtn) stopBtn.textContent=d.stop;
+      const battleBtn=$('#m-attack'); if(battleBtn) battleBtn.textContent=d.battle;
+      const bagBtn=$('#m-bag'); if(bagBtn) bagBtn.textContent=d.bag;
+      const speakBtn=$('#m-chat-focus'); if(speakBtn) speakBtn.textContent=d.speak;
+      const panelBtn=$('#m-panels-toggle'); if(panelBtn) panelBtn.textContent=lang==='pt'?'☰ Menu':'☰ Menu';
       const mlang=$('#m-lang'); if(mlang) mlang.textContent=lang==='pt'?'PT':'EN';
     }
     const welcome = document.createElement('section');
