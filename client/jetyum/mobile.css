@@ -57,3 +57,28 @@
   #mobile-actions .m-btn { min-height:42px; min-width:50px; }
   #mobile-bottom { align-items:flex-end; }
 }
+
+
+/* Bilingual welcome page */
+#jetyum-welcome { position:fixed; inset:0; z-index:80; overflow:auto; display:flex; align-items:center; justify-content:center; padding:24px; color:#f4f6ff; background:radial-gradient(ellipse at 50% 0%,#24385c 0%,#101522 45%,#07090f 100%); font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif; }
+#jetyum-welcome[hidden] { display:none !important; }
+.jw-wrap { width:min(100%,980px); margin:auto; }
+.jw-nav { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:clamp(28px,8vh,72px); }
+.jw-logo { font-weight:900; letter-spacing:.12em; font-size:clamp(18px,4vw,26px); }
+.jw-lang { display:flex; gap:6px; }
+.jw-lang button { border:1px solid #53627e; color:#dce8ff; background:#111827; border-radius:10px; padding:9px 13px; font-weight:700; }
+.jw-lang button.active { background:#28548a; border-color:#93c5fd; color:#fff; }
+.jw-hero { max-width:780px; }
+.jw-kicker { color:#8ec5ff; text-transform:uppercase; letter-spacing:.18em; font-size:12px; font-weight:800; }
+.jw-hero h1 { font-size:clamp(38px,8vw,76px); line-height:.99; letter-spacing:-.045em; margin:12px 0 20px; }
+.jw-hero p { color:#c1cbe0; font-size:clamp(16px,2.5vw,20px); max-width:680px; }
+.jw-cta { display:flex; flex-wrap:wrap; gap:10px; margin:28px 0 34px; }
+.jw-cta button { border:1px solid #78b7ff; border-radius:13px; padding:14px 20px; font-size:16px; font-weight:800; cursor:pointer; color:#06111e; background:linear-gradient(135deg,#9bd0ff,#4e9fff); }
+.jw-cta .jw-secondary { color:#e8f1ff; background:#182235; border-color:#53627e; }
+.jw-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:28px; }
+.jw-feature { background:#101827c9; border:1px solid #34435e; border-radius:16px; padding:18px; }
+.jw-feature strong { display:block; margin:8px 0 4px; }
+.jw-feature p { margin:0; color:#aebbd2; font-size:14px; }
+.jw-icon { font-size:26px; }
+.jw-foot { color:#71809a; font-size:12px; margin-top:28px; }
+@media(max-width:620px) { #jetyum-welcome { padding:18px; align-items:flex-start; } .jw-nav { margin-bottom:40px; } .jw-features { grid-template-columns:1fr; } .jw-feature { display:grid; grid-template-columns:38px 1fr; column-gap:8px; padding:13px; } .jw-icon { grid-row:span 2; } .jw-feature strong { margin:0 0 3px; } .jw-cta button { flex:1; min-height:50px; } }
