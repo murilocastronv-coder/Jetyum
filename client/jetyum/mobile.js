@@ -16,7 +16,7 @@
         <div class="mgroup"><button class="m-btn" id="m-full" type="button" aria-label="Fullscreen">⛶</button>
           <button class="m-btn" id="m-lang" type="button" aria-label="Change language">EN</button>
           <button class="m-btn" id="m-panels-toggle" type="button">☰</button></div>
-        <div id="mobile-status">Jetyum</div>
+        <div id="mobile-status">Forgotten Lands</div>
         <div class="mgroup"><button class="m-btn" id="m-chat-toggle" type="button">Chat</button></div>
       </div>
       <div id="mobile-panels" aria-label="Painéis do jogo"></div>
@@ -40,11 +40,11 @@
     const language = { value: (navigator.language || 'en').toLowerCase().startsWith('pt') ? 'pt' : 'en' };
     const dictionary = {
       pt: {
-        kicker:'RPG online para explorar', title:'A aventura começa aqui.', intro:'Explora um mundo de fantasia, cria o teu personagem, luta contra criaturas, recolhe itens e evolui enquanto descobres o mundo de Jetyum.',
+        kicker:'MMORPG de fantasia • aventura online', title:'O teu destino está por escrever.', intro:'Entra em Forgotten Lands, cria o teu herói, explora terras misteriosas, enfrenta monstros, conquista tesouros e torna-te uma lenda. A aventura espera por ti.',
         play:'Jogar agora', learn:'Como jogar', feature1:'Explora o mundo', desc1:'Viaja pelo mapa, descobre lugares e encontra criaturas pelo caminho.',
         feature2:'Combate e progresso', desc2:'Enfrenta monstros, ganha experiência e melhora o teu personagem.',
         feature3:'Equipamento e inventário', desc3:'Recolhe objetos, gere a mochila e organiza o teu equipamento.',
-        foot:'Jetyum é um RPG em desenvolvimento. Algumas funcionalidades podem mudar.', mobile:'Feito para jogar no telemóvel ou computador.',
+        foot:'Forgotten Lands é um RPG em desenvolvimento. Algumas funcionalidades podem mudar.', mobile:'Feito para jogar no telemóvel ou computador.',
         stop:'⏹ Parar', battle:'⚔ Batalha', bag:'🎒 Mochila', speak:'✎ Chat', chat:'Mensagem, comando ou magia…',
         enter:'Entrar', create:'Criar conta', account:'Conta', password:'Palavra-passe', repeat:'Repete a palavra-passe',
         character:'Nome do personagem', vocation:'Vocação', sex:'Sexo', man:'Homem', woman:'Mulher', remember:'Memorizar conta neste navegador',
@@ -54,11 +54,11 @@
         default:'Geral', serverLog:'Registo do servidor', status:'A ligar…'
       },
       en: {
-        kicker:'Online RPG adventure', title:'Your adventure starts here.', intro:'Explore a fantasy world, create your character, fight creatures, collect loot, and grow stronger as you discover the world of Jetyum.',
+        kicker:'Fantasy MMORPG • online adventure', title:'Your destiny is unwritten.', intro:'Enter Forgotten Lands, create your hero, explore mysterious lands, battle monsters, claim treasures, and become a legend. Your adventure awaits.',
         play:'Play now', learn:'How to play', feature1:'Explore the world', desc1:'Travel across the map, discover new places, and encounter creatures along the way.',
         feature2:'Combat and progression', desc2:'Fight monsters, earn experience, and improve your character.',
         feature3:'Gear and inventory', desc3:'Collect items, manage your backpack, and organise your equipment.',
-        foot:'Jetyum is an RPG in development. Some features may change.', mobile:'Designed for phones and computers.',
+        foot:'Forgotten Lands is an RPG in development. Some features may change.', mobile:'Designed for phones and computers.',
         stop:'⏹ Stop', battle:'⚔ Battle', bag:'🎒 Backpack', speak:'✎ Chat', chat:'Message, command, or spell…',
         enter:'Log in', create:'Create account', account:'Account', password:'Password', repeat:'Repeat password',
         character:'Character name', vocation:'Vocation', sex:'Sex', man:'Male', woman:'Female', remember:'Remember account on this browser',
@@ -81,7 +81,7 @@
       language.value = lang;
       const d = dictionary[lang];
       document.documentElement.lang = lang === 'pt' ? 'pt-PT' : 'en';
-      document.title = 'Jetyum — ' + (lang === 'pt' ? 'RPG online' : 'online RPG');
+      document.title = 'Forgotten Lands — ' + (lang === 'pt' ? 'RPG online' : 'online RPG');
       const welcome = $('#jetyum-welcome');
       if (welcome) {
         $('[data-copy]', welcome).forEach(el => { const k=el.dataset.copy; if (d[k]) el.textContent=d[k]; });
@@ -115,25 +115,60 @@
     welcome.id='jetyum-welcome';
     welcome.innerHTML=`
       <div class="jw-wrap">
-        <nav class="jw-nav"><div class="jw-logo">JETYUM</div><div class="jw-lang"><button type="button" data-language="en">ENGLISH</button><button type="button" data-language="pt">PORTUGUÊS</button></div></nav>
+        <nav class="jw-nav"><a class="jw-logo" href="#" aria-label="Forgotten Lands home">FORGOTTEN <span>LANDS</span></a><div class="jw-lang"><button type="button" data-language="en">🇬🇧 ENGLISH</button><button type="button" data-language="pt">🇵🇹 PORTUGUÊS</button></div></nav>
         <main class="jw-hero">
           <div class="jw-kicker" data-copy="kicker"></div>
           <h1 data-copy="title"></h1>
           <p data-copy="intro"></p>
           <div class="jw-cta"><button type="button" id="jw-play" data-copy="play"></button><button type="button" class="jw-secondary" id="jw-learn" data-copy="learn"></button></div>
+          <div class="jw-screenshot"><img src="https://raw.githubusercontent.com/murilocastronv-coder/Jetyum/main/docs/guias/img/juego-detalle.png" alt="Imagem do mundo de Forgotten Lands" loading="eager"><div class="jw-image-label"><span>FORGOTTEN LANDS</span><small>EXPLORE • FIGHT • BECOME A LEGEND</small></div></div>
+          <h2 class="jw-section-title" id="jw-world-title">A TUA AVENTURA COMEÇA AQUI</h2>
           <div class="jw-features">
-            <article class="jw-feature"><div class="jw-icon">🗺️</div><div><strong data-copy="feature1"></strong><p data-copy="desc1"></p></div></article>
-            <article class="jw-feature"><div class="jw-icon">⚔️</div><div><strong data-copy="feature2"></strong><p data-copy="desc2"></p></div></article>
-            <article class="jw-feature"><div class="jw-icon">🎒</div><div><strong data-copy="feature3"></strong><p data-copy="desc3"></p></div></article>
+            <button type="button" class="jw-feature" data-feature="map"><span class="jw-icon">🗺️</span><strong data-copy="feature1"></strong><p data-copy="desc1"></p><span class="jw-more">＋</span></button>
+            <button type="button" class="jw-feature" data-feature="combat"><span class="jw-icon">⚔️</span><strong data-copy="feature2"></strong><p data-copy="desc2"></p><span class="jw-more">＋</span></button>
+            <button type="button" class="jw-feature" data-feature="bag"><span class="jw-icon">🎒</span><strong data-copy="feature3"></strong><p data-copy="desc3"></p><span class="jw-more">＋</span></button>
           </div>
+          <div id="jw-feature-detail" class="jw-feature-detail" hidden></div>
+          <div class="jw-how"><h2 id="jw-how-title">COMO COMEÇAR</h2><div class="jw-steps"><div><b>01</b><strong id="jw-step1">Cria a tua conta</strong><p id="jw-step1p">Escolhe as tuas credenciais e cria o teu herói.</p></div><div><b>02</b><strong id="jw-step2">Entra no mundo</strong><p id="jw-step2p">Explora o mapa e aprende os controlos.</p></div><div><b>03</b><strong id="jw-step3">Fica mais forte</strong><p id="jw-step3p">Combate criaturas, recolhe itens e evolui.</p></div></div></div>
+          <div class="jw-bottom-cta"><div><strong id="jw-ready">Pronto para descobrir Forgotten Lands?</strong><p id="jw-ready-p">A tua próxima aventura começa com um clique.</p></div><button type="button" id="jw-play-bottom">JOGAR AGORA →</button></div>
           <p class="jw-foot" data-copy="foot"></p><p class="jw-foot" data-copy="mobile"></p>
         </main>
       </div>`;
     document.body.appendChild(welcome);
     welcome.querySelectorAll('[data-language]').forEach(b=>b.addEventListener('click',()=>applyLanguage(b.dataset.language)));
+    const featureDetails = {
+      pt: {map:'Explora o território, percorre diferentes zonas e fica atento a criaturas e segredos escondidos.',combat:'Ataca criaturas, acompanha a batalha e desenvolve o teu personagem enquanto ganhas experiência.',bag:'Consulta a mochila, recolhe objetos e gere o equipamento que encontras durante a aventura.'},
+      en: {map:'Explore the territory, travel through different areas, and watch for creatures and hidden secrets.',combat:'Fight creatures, follow battles, and develop your character as you gain experience.',bag:'Open your backpack, collect items, and manage the equipment you discover on your journey.'}
+    };
+    welcome.querySelectorAll('[data-feature]').forEach(card=>card.addEventListener('click',()=>{
+      const key=card.dataset.feature, detail=$('#jw-feature-detail');
+      detail.textContent=featureDetails[language.value][key]; detail.hidden=false;
+      welcome.querySelectorAll('[data-feature]').forEach(el=>el.classList.toggle('selected',el===card));
+      detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }));
+    const enterLogin = () => { welcome.hidden=true; const overlay=$('#overlay'); if(overlay) { overlay.hidden=false; overlay.style.display='flex'; } };
+    $('#jw-play').addEventListener('click',enterLogin);
+    $('#jw-play-bottom').addEventListener('click',enterLogin);
     $('#m-lang').addEventListener('click',()=>applyLanguage(language.value==='pt'?'en':'pt'));
     $('#jw-play').addEventListener('click',()=>{welcome.hidden=true; const overlay=$('#overlay'); if(overlay) overlay.hidden=false;});
-    $('#jw-learn').addEventListener('click',()=>$('#jetyum-welcome .jw-features')?.scrollIntoView({behavior:'smooth',block:'center'}));
+    $('#jw-learn').addEventListener('click',()=>$('#jw-how-title')?.scrollIntoView({behavior:'smooth',block:'center'}));
+    const syncLandingLanguage = lang => {
+      const pt=lang==='pt';
+      $('#jw-world-title').textContent=pt?'A TUA AVENTURA COMEÇA AQUI':'YOUR ADVENTURE STARTS HERE';
+      $('#jw-how-title').textContent=pt?'COMO COMEÇAR':'HOW TO BEGIN';
+      $('#jw-step1').textContent=pt?'Cria a tua conta':'Create your account';
+      $('#jw-step1p').textContent=pt?'Escolhe as tuas credenciais e cria o teu herói.':'Choose your credentials and create your hero.';
+      $('#jw-step2').textContent=pt?'Entra no mundo':'Enter the world';
+      $('#jw-step2p').textContent=pt?'Explora o mapa e aprende os controlos.':'Explore the map and learn the controls.';
+      $('#jw-step3').textContent=pt?'Fica mais forte':'Become stronger';
+      $('#jw-step3p').textContent=pt?'Combate criaturas, recolhe itens e evolui.':'Fight creatures, collect items, and level up.';
+      $('#jw-ready').textContent=pt?'Pronto para descobrir Forgotten Lands?':'Ready to discover Forgotten Lands?';
+      $('#jw-ready-p').textContent=pt?'A tua próxima aventura começa com um clique.':'Your next adventure is one click away.';
+      $('#jw-play-bottom').textContent=pt?'JOGAR AGORA →':'PLAY NOW →';
+      const detail=$('#jw-feature-detail'); if(!detail.hidden){ const selected=$('.jw-feature.selected'); if(selected) detail.textContent=featureDetails[lang][selected.dataset.feature];}
+    };
+    const originalApplyLanguage=applyLanguage;
+    applyLanguage = (lang) => { originalApplyLanguage(lang); syncLandingLanguage(lang); };
     applyLanguage(language.value);
     const overlay=$('#overlay'); if(overlay) overlay.hidden=true;
 
@@ -206,7 +241,7 @@
       input.value=''; chat.classList.remove('open'); input.blur();
     });
     const status = $('#status');
-    if (status) new MutationObserver(() => { $('#mobile-status').textContent = status.textContent || 'Jetyum'; }).observe(status,{childList:true,subtree:true,characterData:true});
+    if (status) new MutationObserver(() => { $('#mobile-status').textContent = status.textContent || 'Forgotten Lands'; }).observe(status,{childList:true,subtree:true,characterData:true});
     document.addEventListener('keydown', e => {
       if (!isMobile() || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key)) e.preventDefault();
